@@ -90,7 +90,7 @@ html {
 }
 
 .content-card {
-  @apply bg-card rounded-lg overflow-hidden shadow-subtle hover:shadow-md transition-all duration-300;
+  @apply bg-card rounded-lg overflow-hidden shadow-subtle hover:shadow-md transition-all duration-300 border border-transparent hover:border-white/10;
 }
 
 .content-title {
@@ -110,7 +110,7 @@ html {
 }
 
 .filter-container {
-  @apply bg-card/50 backdrop-blur-sm p-5 rounded-lg border border-border/50 shadow-subtle;
+  @apply bg-card/50 backdrop-blur-sm p-5 rounded-lg border border-border/50 shadow-subtle flex flex-row flex-wrap md:flex-nowrap gap-4 items-center;
 }
 
 .image-shimmer {
@@ -194,4 +194,25 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
+}
+
+/* Responsive breakpoints */
+@media (max-width: 991px) {
+  .mobile-menu {
+    display: block;
+  }
+  
+  .desktop-menu {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .mobile-menu {
+    display: none;
+  }
+  
+  .desktop-menu {
+    display: flex;
+  }
 }

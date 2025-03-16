@@ -53,7 +53,7 @@ const sliderData = [
   },
 ];
 
-// Trading card data for slider
+// Trading card data for slider - ensure all 6 items are displayed
 const tradingCardData = [
   {
     id: 1,
@@ -228,7 +228,7 @@ const HeroSlider = () => {
           {/* Trading Card */}
           <div className="hidden lg:block">
             <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20 shadow-lg">
-              <h3 className="text-white font-heading text-xl font-bold mb-4">Featured Trading Course</h3>
+              <h3 className="text-white font-heading text-xl font-bold mb-4">Featured Course</h3>
               
               {tradingCardData.map((card, index) => (
                 <div 

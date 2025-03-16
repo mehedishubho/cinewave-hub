@@ -1,6 +1,5 @@
 
 import { lazy } from 'react';
-import { Link } from 'react-router-dom';
 import ContentGrid from '@/components/common/ContentGrid';
 import TradingSection from '@/components/home/TradingSection';
 
@@ -47,14 +46,14 @@ const mockDocumentaries = Array(12).fill(null).map((_, index) => ({
   contentType: 'Documentary'
 }));
 
-const mockTrading = Array(6).fill(null).map((_, index) => ({
+const mockTrading = Array(12).fill(null).map((_, index) => ({
   id: `trading-${index}`,
-  title: `Trading Course ${index + 1}`,
+  title: `Trending Item ${index + 1}`,
   poster: '/placeholder.svg',
   category: 'Finance',
   instructor: `Instructor ${index + 1}`,
   language: 'English',
-  contentType: 'Trading',
+  contentType: 'Trending',
   rating: 4.9
 }));
 

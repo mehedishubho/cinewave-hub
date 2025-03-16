@@ -10,7 +10,7 @@ interface BannerProps {
 interface Breadcrumb {
   name: string;
   path: string;
-  isActive?: boolean;  // This is already defined as optional with '?'
+  isActive?: boolean;
 }
 
 const Banner = ({ title, subtitle }: BannerProps) => {
@@ -52,7 +52,7 @@ const Banner = ({ title, subtitle }: BannerProps) => {
           {breadcrumbs.map((crumb, index) => (
             <div key={index} className="flex items-center">
               {index > 0 && <ChevronRight className="h-3 w-3 mx-1 text-white/50" />}
-              {crumb.isActive ? (
+              {'isActive' in crumb && crumb.isActive ? (
                 <span className="text-white">{crumb.name}</span>
               ) : (
                 <Link to={crumb.path} className="hover:text-primary transition-colors">
