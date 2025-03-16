@@ -26,8 +26,8 @@ const Tutorials = () => {
       
       <div className="container mx-auto px-4 py-12">
         <ContentFilter 
-          type="tutorial"
-          onFilterChange={(filtered) => setFilteredTutorials(filtered as any)} 
+          type="tutorials"
+          onFilter={(filtered) => setFilteredTutorials(filtered as any)} 
           initialData={mockTutorials}
         />
         

@@ -27,7 +27,7 @@ const Documentary = () => {
       <div className="container mx-auto px-4 py-12">
         <ContentFilter 
           type="documentary"
-          onFilterChange={(filtered) => setFilteredDocumentaries(filtered as any)} 
+          onFilter={(filtered) => setFilteredDocumentaries(filtered as any)} 
           initialData={mockDocumentaries}
         />
         

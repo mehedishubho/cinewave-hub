@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Search, SlidersHorizontal, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,9 +9,10 @@ import { cn } from '@/lib/utils';
 interface ContentFilterProps {
   type: 'movies' | 'tv-series' | 'tutorials' | 'documentary';
   onFilter: (filters: any) => void;
+  initialData: any[];
 }
 
-const ContentFilter = ({ type, onFilter }: ContentFilterProps) => {
+const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
   // Sample filter options - in a real app, these would come from your backend
   const genreOptions = [
     'Action', 'Adventure', 'Animation', 'Comedy', 
