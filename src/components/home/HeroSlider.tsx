@@ -53,6 +53,43 @@ const sliderData = [
   },
 ];
 
+// Trading card data for slider
+const tradingCardData = [
+  {
+    id: 1,
+    title: 'Forex Trading Masterclass',
+    description: 'Learn proven forex trading strategies from expert traders.',
+    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+    instructor: 'Michael Thompson',
+    rating: 4.9,
+    level: 'All Levels',
+    duration: '12 hours',
+    link: '/trading/forex-masterclass',
+  },
+  {
+    id: 2,
+    title: 'Stock Market Fundamentals',
+    description: 'Master the fundamentals of stock market investing and trading.',
+    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+    instructor: 'Sarah Johnson',
+    rating: 4.8,
+    level: 'Beginner',
+    duration: '10 hours',
+    link: '/trading/stock-fundamentals',
+  },
+  {
+    id: 3,
+    title: 'Cryptocurrency Trading',
+    description: 'Learn how to trade cryptocurrencies and build a profitable portfolio.',
+    image: 'https://images.unsplash.com/photo-1621761311618-c1160b3a3d39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80',
+    instructor: 'Alex Chen',
+    rating: 4.7,
+    level: 'Intermediate',
+    duration: '15 hours',
+    link: '/trading/crypto-trading',
+  },
+];
+
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -78,7 +115,7 @@ const HeroSlider = () => {
   }, []);
   
   return (
-    <div className="relative h-[80vh] min-h-[600px] max-h-[800px] overflow-hidden">
+    <div className="relative h-[85vh] min-h-[650px] max-h-[850px] overflow-hidden">
       {/* Background Images */}
       {sliderData.map((slide, index) => (
         <div
@@ -88,7 +125,7 @@ const HeroSlider = () => {
             index === currentSlide ? 'opacity-100' : 'opacity-0'
           )}
         >
-          <div className="absolute inset-0 bg-black/50 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-cine-dark/90 via-cine-dark/70 to-transparent z-10"></div>
           <img
             src={slide.image}
             alt={slide.title}
@@ -99,55 +136,106 @@ const HeroSlider = () => {
       
       {/* Content */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="container mx-auto px-4">
-          {sliderData.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={cn(
-                'max-w-3xl transition-all duration-500',
-                index === currentSlide 
-                  ? 'opacity-100 translate-x-0' 
-                  : 'opacity-0 translate-x-8'
-              )}
-              style={{ display: index === currentSlide ? 'block' : 'none' }}
-            >
-              <div className="flex items-center space-x-2 mb-4">
-                <span className="inline-block bg-primary text-primary-foreground text-xs font-medium px-2.5 py-1 rounded">
-                  {slide.type === 'movie' ? 'Movie' : 'TV Series'}
-                </span>
-                <div className="flex items-center text-cine-rating">
-                  <Star className="w-4 h-4 mr-1" />
-                  <span className="text-white text-sm">{slide.rating.toFixed(1)}</span>
+        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            {sliderData.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={cn(
+                  'transition-all duration-500',
+                  index === currentSlide 
+                    ? 'opacity-100 translate-x-0' 
+                    : 'opacity-0 translate-x-8'
+                )}
+                style={{ display: index === currentSlide ? 'block' : 'none' }}
+              >
+                <div className="flex items-center space-x-2 mb-4">
+                  <span className="inline-block bg-cine-primary text-white text-xs font-medium px-2.5 py-1 rounded">
+                    {slide.type === 'movie' ? 'Movie' : 'TV Series'}
+                  </span>
+                  <div className="flex items-center text-cine-rating">
+                    <Star className="w-4 h-4 mr-1" />
+                    <span className="text-white text-sm">{slide.rating.toFixed(1)}</span>
+                  </div>
+                  <span className="text-white/80 text-sm">{slide.year}</span>
+                  <div className="flex items-center text-white/80 text-sm">
+                    <Clock className="w-3.5 h-3.5 mr-1" />
+                    <span>{slide.duration}</span>
+                  </div>
                 </div>
-                <span className="text-white/80 text-sm">{slide.year}</span>
-                <div className="flex items-center text-white/80 text-sm">
-                  <Clock className="w-3.5 h-3.5 mr-1" />
-                  <span>{slide.duration}</span>
+                
+                <h2 className="text-white font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-4 text-shadow">
+                  {slide.title}
+                </h2>
+                
+                <p className="text-white/90 mb-6 max-w-xl text-shadow">
+                  {slide.description}
+                </p>
+                
+                <div className="flex space-x-4">
+                  <Button asChild size="lg" className="bg-cine-primary hover:bg-cine-primary/90">
+                    <Link to={slide.link}>
+                      Watch Now
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                    <Link to={slide.link}>
+                      Details
+                    </Link>
+                  </Button>
                 </div>
               </div>
+            ))}
+          </div>
+          
+          {/* Trading Card */}
+          <div className="hidden lg:block">
+            <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20 shadow-lg">
+              <h3 className="text-white font-heading text-xl font-bold mb-4">Featured Trading Course</h3>
               
-              <h2 className="text-white font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-4 text-shadow">
-                {slide.title}
-              </h2>
-              
-              <p className="text-white/90 mb-6 max-w-xl text-shadow">
-                {slide.description}
-              </p>
-              
-              <div className="flex space-x-4">
-                <Button asChild size="lg" className="bg-cine-primary hover:bg-cine-primary/90">
-                  <Link to={slide.link}>
-                    Watch Now
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                  <Link to={slide.link}>
-                    Details
-                  </Link>
-                </Button>
-              </div>
+              {tradingCardData.map((card, index) => (
+                <div 
+                  key={card.id}
+                  className={cn(
+                    'transition-all duration-500',
+                    index === currentSlide % tradingCardData.length
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-8'
+                  )}
+                  style={{ display: index === currentSlide % tradingCardData.length ? 'block' : 'none' }}
+                >
+                  <div className="mb-4 rounded-md overflow-hidden">
+                    <img 
+                      src={card.image} 
+                      alt={card.title} 
+                      className="w-full h-40 object-cover"
+                    />
+                  </div>
+                  
+                  <h4 className="text-white text-lg font-semibold mb-2">{card.title}</h4>
+                  
+                  <p className="text-white/80 text-sm mb-3">
+                    {card.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center text-cine-rating">
+                      <Star className="w-4 h-4 mr-1" />
+                      <span className="text-white text-sm">{card.rating}</span>
+                    </div>
+                    <span className="text-white/70 text-xs">{card.duration}</span>
+                  </div>
+                  
+                  <Button asChild className="w-full bg-cine-primary hover:bg-cine-primary/90">
+                    <Link to={card.link}>
+                      View Course
+                    </Link>
+                  </Button>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
       
@@ -159,7 +247,7 @@ const HeroSlider = () => {
             className={cn(
               'w-3 h-3 rounded-full transition-all',
               index === currentSlide 
-                ? 'bg-primary w-8'
+                ? 'bg-cine-primary w-8'
                 : 'bg-white/40 hover:bg-white/70'
             )}
             onClick={() => setCurrentSlide(index)}

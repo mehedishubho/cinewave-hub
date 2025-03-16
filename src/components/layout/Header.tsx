@@ -68,13 +68,13 @@ const Header = () => {
     <header 
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 md:px-8',
-        isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        isScrolled ? 'bg-cine-dark/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <span className="text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-cine-primary to-cine-secondary">
+          <span className="text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-cine-primary to-cine-accent">
             CineWave
           </span>
         </Link>
@@ -88,8 +88,8 @@ const Header = () => {
               className={cn(
                 'px-3 py-2 rounded-md text-sm font-medium transition-colors',
                 location.pathname === item.path
-                  ? 'text-primary'
-                  : 'text-foreground/80 hover:text-primary hover:bg-primary/5'
+                  ? 'text-cine-primary'
+                  : 'text-foreground/80 hover:text-cine-primary hover:bg-cine-primary/5'
               )}
             >
               {item.name}
@@ -99,7 +99,7 @@ const Header = () => {
             variant="ghost"
             size="icon"
             onClick={toggleSearch}
-            className={cn('ml-2', searchOpen && 'text-primary')}
+            className={cn('ml-2', searchOpen && 'text-cine-primary')}
           >
             <Search className="h-5 w-5" />
           </Button>
@@ -111,7 +111,7 @@ const Header = () => {
             variant="ghost"
             size="icon"
             onClick={toggleSearch}
-            className={cn(searchOpen && 'text-primary')}
+            className={cn(searchOpen && 'text-cine-primary')}
           >
             <Search className="h-5 w-5" />
           </Button>
@@ -122,7 +122,7 @@ const Header = () => {
 
         {/* Search Overlay */}
         {searchOpen && (
-          <div className="absolute top-full left-0 right-0 p-4 bg-background/95 backdrop-blur-md border-b border-border animate-slide-down shadow-md">
+          <div className="absolute top-full left-0 right-0 p-4 bg-cine-dark/95 backdrop-blur-md border-b border-border animate-slide-down shadow-md">
             <div className="max-w-3xl mx-auto">
               <form onSubmit={handleSearchSubmit} className="flex flex-col gap-3">
                 <div className="flex gap-2">
@@ -164,7 +164,7 @@ const Header = () => {
                       )}
                     </div>
                   </div>
-                  <Button type="submit" className="shrink-0">
+                  <Button type="submit" className="shrink-0 bg-cine-primary hover:bg-cine-primary/90">
                     Search
                   </Button>
                 </div>
@@ -172,16 +172,16 @@ const Header = () => {
                 <div className="flex flex-wrap gap-2 mt-2">
                   <div className="text-sm font-medium">Filters:</div>
                   <div className="flex flex-wrap gap-2">
-                    <Button variant="outline" size="sm" className="h-7 text-xs">
+                    <Button variant="outline" size="sm" className="h-7 text-xs border-cine-primary/30 text-cine-primary">
                       Genre: All
                     </Button>
-                    <Button variant="outline" size="sm" className="h-7 text-xs">
+                    <Button variant="outline" size="sm" className="h-7 text-xs border-cine-primary/30 text-cine-primary">
                       Year: Any
                     </Button>
-                    <Button variant="outline" size="sm" className="h-7 text-xs">
+                    <Button variant="outline" size="sm" className="h-7 text-xs border-cine-primary/30 text-cine-primary">
                       Rating: Any
                     </Button>
-                    <Button variant="outline" size="sm" className="h-7 text-xs">
+                    <Button variant="outline" size="sm" className="h-7 text-xs border-cine-primary/30 text-cine-primary">
                       Language: All
                     </Button>
                   </div>
@@ -193,7 +193,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 top-[68px] bg-background z-40 animate-fade-in">
+          <div className="fixed inset-0 top-[68px] bg-cine-dark z-40 animate-fade-in">
             <nav className="flex flex-col p-4">
               {navItems.map((item) => (
                 <Link
@@ -202,7 +202,7 @@ const Header = () => {
                   className={cn(
                     'px-4 py-3 flex items-center gap-3 rounded-md text-base font-medium transition-colors',
                     location.pathname === item.path
-                      ? 'bg-primary/10 text-primary'
+                      ? 'bg-cine-primary/10 text-cine-primary'
                       : 'hover:bg-muted'
                   )}
                 >

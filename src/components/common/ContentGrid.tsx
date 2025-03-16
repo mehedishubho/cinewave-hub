@@ -32,7 +32,7 @@ const ContentGrid = ({
         
         {viewAllLink && (
           <Button variant="ghost" asChild className="group">
-            <Link to={viewAllLink} className="flex items-center text-sm font-medium hover:text-primary">
+            <Link to={viewAllLink} className="flex items-center text-sm font-medium hover:text-cine-primary">
               View All
               <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>

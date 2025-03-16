@@ -65,11 +65,14 @@ export default {
 				},
 				cine: {
 					'dark': '#1A1F2C',
-					'primary': '#0EA5E9',
-					'secondary': '#33C3F0',
-					'accent': '#F97316',
+					'primary': '#9b87f5',
+					'secondary': '#7E69AB',
+					'tertiary': '#6E59A5',
+					'accent': '#33C3F0',
 					'light': '#F6F6F7',
-					'rating': '#FEC654'
+					'rating': '#FEC654',
+					'charcoal': '#403E43',
+					'neutral': '#8E9196'
 				}
 			},
 			borderRadius: {

@@ -11,6 +11,7 @@ interface ContentCardProps {
   year?: string | number;
   rating?: number;
   language?: string;
+  contentType?: string;
   category?: string;
   genres?: string[];
   className?: string;
@@ -24,6 +25,7 @@ const ContentCard = ({
   year,
   rating,
   language,
+  contentType,
   category,
   genres,
   className
@@ -81,6 +83,7 @@ const ContentCard = ({
             <>
               {year && <span>{year}</span>}
               {language && <span>{language}</span>}
+              {contentType && <span className="text-cine-primary">{contentType}</span>}
               {genres && genres.length > 0 && <span>{genres[0]}</span>}
             </>
           )}
@@ -89,6 +92,7 @@ const ContentCard = ({
             <>
               {year && <span>{year}</span>}
               {language && <span>{language}</span>}
+              {contentType && <span className="text-cine-primary">{contentType}</span>}
               {genres && genres.length > 0 && <span>{genres[0]}</span>}
             </>
           )}
@@ -97,6 +101,7 @@ const ContentCard = ({
             <>
               {category && <span>{category}</span>}
               {language && <span>{language}</span>}
+              {contentType && <span className="text-cine-primary">{contentType}</span>}
             </>
           )}
           
@@ -105,6 +110,7 @@ const ContentCard = ({
               {category && <span>{category}</span>}
               {year && <span>{year}</span>}
               {language && <span>{language}</span>}
+              {contentType && <span className="text-cine-primary">{contentType}</span>}
             </>
           )}
         </div>

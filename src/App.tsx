@@ -11,8 +11,11 @@ import Footer from "./components/layout/Footer";
 // Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
+const MovieDetail = lazy(() => import("./pages/MovieDetail"));
 const TvSeries = lazy(() => import("./pages/TvSeries"));
+const TvSeriesDetail = lazy(() => import("./pages/TvSeriesDetail"));
 const Tutorials = lazy(() => import("./pages/Tutorials"));
+const TutorialDetail = lazy(() => import("./pages/TutorialDetail"));
 const Documentary = lazy(() => import("./pages/Documentary"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Request = lazy(() => import("./pages/Request"));
@@ -43,8 +46,11 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/movies" element={<Movies />} />
+                <Route path="/movies/:id" element={<MovieDetail />} />
                 <Route path="/tv-series" element={<TvSeries />} />
+                <Route path="/tv-series/:id" element={<TvSeriesDetail />} />
                 <Route path="/tutorials" element={<Tutorials />} />
+                <Route path="/tutorials/:id" element={<TutorialDetail />} />
                 <Route path="/documentary" element={<Documentary />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/request" element={<Request />} />

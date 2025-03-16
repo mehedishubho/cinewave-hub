@@ -1,7 +1,8 @@
 
 import { lazy } from 'react';
-import Banner from '@/components/layout/Banner';
+import { Link } from 'react-router-dom';
 import ContentGrid from '@/components/common/ContentGrid';
+import TradingSection from '@/components/home/TradingSection';
 
 // Mock data for demonstration
 const mockMovies = Array(12).fill(null).map((_, index) => ({
@@ -11,6 +12,7 @@ const mockMovies = Array(12).fill(null).map((_, index) => ({
   year: 2023,
   type: 'Action',
   language: 'English',
+  contentType: 'Movie',
   rating: 4.5
 }));
 
@@ -21,6 +23,7 @@ const mockTvSeries = Array(12).fill(null).map((_, index) => ({
   year: 2023,
   type: 'Drama',
   language: 'English',
+  contentType: 'TV Series',
   rating: 4.8
 }));
 
@@ -30,7 +33,8 @@ const mockTutorials = Array(12).fill(null).map((_, index) => ({
   poster: '/placeholder.svg',
   category: 'Development',
   type: 'Video',
-  language: 'English'
+  language: 'English',
+  contentType: 'Tutorial'
 }));
 
 const mockDocumentaries = Array(12).fill(null).map((_, index) => ({
@@ -39,7 +43,19 @@ const mockDocumentaries = Array(12).fill(null).map((_, index) => ({
   poster: '/placeholder.svg',
   category: 'Nature',
   year: 2023,
-  language: 'English'
+  language: 'English',
+  contentType: 'Documentary'
+}));
+
+const mockTrading = Array(6).fill(null).map((_, index) => ({
+  id: `trading-${index}`,
+  title: `Trading Course ${index + 1}`,
+  poster: '/placeholder.svg',
+  category: 'Finance',
+  instructor: `Instructor ${index + 1}`,
+  language: 'English',
+  contentType: 'Trading',
+  rating: 4.9
 }));
 
 // Lazy load the HeroSlider component
@@ -51,6 +67,9 @@ const Home = () => {
       {/* Hero Slider Section */}
       <HeroSlider />
       
+      {/* Trading Section */}
+      <TradingSection items={mockTrading} />
+      
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12 space-y-16">
         {/* Latest Movies */}
@@ -59,6 +78,7 @@ const Home = () => {
           type="movie" 
           items={mockMovies} 
           viewAllLink="/movies" 
+          cols={6}
         />
         
         {/* Latest TV Series */}
@@ -67,6 +87,7 @@ const Home = () => {
           type="tv" 
           items={mockTvSeries} 
           viewAllLink="/tv-series" 
+          cols={6}
         />
         
         {/* Latest Tutorials */}
@@ -75,6 +96,7 @@ const Home = () => {
           type="tutorial" 
           items={mockTutorials} 
           viewAllLink="/tutorials" 
+          cols={6}
         />
         
         {/* Latest Documentaries */}
@@ -83,6 +105,7 @@ const Home = () => {
           type="documentary" 
           items={mockDocumentaries} 
           viewAllLink="/documentary" 
+          cols={6}
         />
       </div>
     </div>
