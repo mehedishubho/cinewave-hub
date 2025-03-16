@@ -37,7 +37,7 @@ const Banner = ({ title, subtitle }: BannerProps) => {
 
   return (
     <div className="breadcrumb-banner">
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-4 relative z-10">
         <h1 className="font-heading font-bold text-white text-2xl md:text-3xl lg:text-4xl mb-2 text-shadow animate-slide-down">
           {title}
         </h1>

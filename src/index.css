@@ -135,7 +135,7 @@ html {
 }
 
 .section-container {
-  @apply py-12 md:py-16 px-4 max-w-7xl mx-auto;
+  @apply py-12 md:py-16 px-4 max-w-[1400px] mx-auto;
 }
 
 .breadcrumb-banner {

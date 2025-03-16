@@ -88,16 +88,51 @@ const tradingCardData = [
     duration: '15 hours',
     link: '/trading/crypto-trading',
   },
+  {
+    id: 4,
+    title: 'Technical Analysis Mastery',
+    description: 'Master chart patterns and technical indicators for effective trading.',
+    image: 'https://images.unsplash.com/photo-1559526324-593bc073d938?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+    instructor: 'David Wilson',
+    rating: 4.9,
+    level: 'Intermediate',
+    duration: '18 hours',
+    link: '/trading/technical-analysis',
+  },
+  {
+    id: 5,
+    title: 'Options Trading Strategies',
+    description: 'Learn advanced options trading strategies to maximize returns.',
+    image: 'https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+    instructor: 'Jennifer Lee',
+    rating: 4.6,
+    level: 'Advanced',
+    duration: '20 hours',
+    link: '/trading/options-trading',
+  },
+  {
+    id: 6,
+    title: 'Day Trading Bootcamp',
+    description: 'Intensive training for day traders looking to master short-term trades.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+    instructor: 'Robert Chang',
+    rating: 4.8,
+    level: 'All Levels',
+    duration: '25 hours',
+    link: '/trading/day-trading',
+  },
 ];
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   
   const goToNext = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev === sliderData.length - 1 ? 0 : prev + 1));
+    setCurrentCardIndex((prev) => (prev === tradingCardData.length - 1 ? 0 : prev + 1));
     setTimeout(() => setIsAnimating(false), 500);
   };
   
@@ -105,6 +140,7 @@ const HeroSlider = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev === 0 ? sliderData.length - 1 : prev - 1));
+    setCurrentCardIndex((prev) => (prev === 0 ? tradingCardData.length - 1 : prev - 1));
     setTimeout(() => setIsAnimating(false), 500);
   };
   
@@ -136,7 +172,7 @@ const HeroSlider = () => {
       
       {/* Content */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {sliderData.map((slide, index) => (
@@ -199,11 +235,11 @@ const HeroSlider = () => {
                   key={card.id}
                   className={cn(
                     'transition-all duration-500',
-                    index === currentSlide % tradingCardData.length
+                    index === currentCardIndex
                       ? 'opacity-100 translate-y-0' 
                       : 'opacity-0 translate-y-8'
                   )}
-                  style={{ display: index === currentSlide % tradingCardData.length ? 'block' : 'none' }}
+                  style={{ display: index === currentCardIndex ? 'block' : 'none' }}
                 >
                   <div className="mb-4 rounded-md overflow-hidden">
                     <img 

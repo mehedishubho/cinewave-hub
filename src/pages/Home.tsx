@@ -68,17 +68,18 @@ const Home = () => {
       <HeroSlider />
       
       {/* Trading Section */}
-      <TradingSection items={mockTrading} />
+      <div className="max-w-[1400px] mx-auto">
+        <TradingSection items={mockTrading} />
+      </div>
       
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 space-y-16">
+      <div className="max-w-[1400px] mx-auto px-4 py-12 space-y-16">
         {/* Latest Movies */}
         <ContentGrid 
           title="Latest Movies" 
           type="movie" 
           items={mockMovies} 
           viewAllLink="/movies" 
-          cols={6}
         />
         
         {/* Latest TV Series */}
@@ -87,7 +88,6 @@ const Home = () => {
           type="tv" 
           items={mockTvSeries} 
           viewAllLink="/tv-series" 
-          cols={6}
         />
         
         {/* Latest Tutorials */}
@@ -96,7 +96,6 @@ const Home = () => {
           type="tutorial" 
           items={mockTutorials} 
           viewAllLink="/tutorials" 
-          cols={6}
         />
         
         {/* Latest Documentaries */}
@@ -105,7 +104,6 @@ const Home = () => {
           type="documentary" 
           items={mockDocumentaries} 
           viewAllLink="/documentary" 
-          cols={6}
         />
       </div>
     </div>

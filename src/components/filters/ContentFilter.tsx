@@ -1,9 +1,24 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
+import { 
+  Popover, 
+  PopoverContent, 
+  PopoverTrigger 
+} from '@/components/ui/popover';
+import { CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { Calendar } from '@/components/ui/calendar';
 
 // Define props interface
 interface ContentFilterProps {
@@ -32,11 +47,10 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
   // State for filters
   const [filters, setFilters] = useState({
     search: '',
-    genres: [] as string[],
-    languages: [] as string[],
-    categories: [] as string[],
-    yearFrom: 2000,
-    yearTo: new Date().getFullYear(),
+    genre: '',
+    language: '',
+    category: '',
+    year: undefined as Date | undefined,
     rating: 0,
     selectedFilterType: type === 'movies' || type === 'tv-series' ? 'newly-released' : '',
   });
@@ -46,13 +60,6 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
   // Handle filter changes
   const handleFilterChange = (key: string, value: any) => {
     setFilters({ ...filters, [key]: value });
-  };
-  
-  // Toggle selection in arrays (genres, languages, categories)
-  const toggleArraySelection = (array: string[], item: string) => {
-    return array.includes(item)
-      ? array.filter(i => i !== item)
-      : [...array, item];
   };
   
   // Handle form submission
@@ -118,119 +125,83 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
           </div>
         )}
         
-        {/* Year Range */}
+        {/* Year Datepicker */}
         <div>
-          <div className="flex justify-between mb-3">
-            <h3 className="text-sm font-medium">Year Range</h3>
-            <span className="text-xs text-muted-foreground">
-              {filters.yearFrom} - {filters.yearTo}
-            </span>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-3">
-            <Input
-              type="number"
-              min="1900"
-              max={new Date().getFullYear()}
-              value={filters.yearFrom}
-              onChange={(e) => handleFilterChange('yearFrom', parseInt(e.target.value))}
-              placeholder="From Year"
-              className="w-full"
-            />
-            <Input
-              type="number"
-              min="1900"
-              max={new Date().getFullYear()}
-              value={filters.yearTo}
-              onChange={(e) => handleFilterChange('yearTo', parseInt(e.target.value))}
-              placeholder="To Year"
-              className="w-full"
-            />
-          </div>
-        </div>
-        
-        {/* Minimum Rating Slider */}
-        {(type === 'movies' || type === 'tv-series') && (
-          <div>
-            <div className="flex justify-between mb-3">
-              <h3 className="text-sm font-medium">Minimum Rating</h3>
-              <span className="text-xs text-muted-foreground">{filters.rating}/10</span>
-            </div>
-            <Slider
-              value={[filters.rating]}
-              min={0}
-              max={10}
-              step={0.5}
-              onValueChange={(value) => handleFilterChange('rating', value[0])}
-              className="py-2"
-            />
-          </div>
-        )}
-        
-        {/* Languages */}
-        <div>
-          <h3 className="text-sm font-medium mb-3">Language</h3>
-          <div className="flex flex-wrap gap-2">
-            {languageOptions.map((language) => (
-              <button
-                key={language}
-                type="button"
+          <h3 className="text-sm font-medium mb-3">Release Year</h3>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
                 className={cn(
-                  "px-3 py-1.5 text-xs font-medium rounded-full border transition-colors flex items-center gap-1.5",
-                  filters.languages.includes(language)
-                    ? "bg-primary/10 text-primary border-primary"
-                    : "bg-transparent border-border hover:bg-muted"
-                )}
-                onClick={() => handleFilterChange(
-                  'languages',
-                  toggleArraySelection(filters.languages, language)
+                  "w-full justify-start text-left font-normal",
+                  !filters.year && "text-muted-foreground"
                 )}
               >
-                {filters.languages.includes(language) && (
-                  <Check className="h-3 w-3" />
-                )}
-                {language}
-              </button>
-            ))}
-          </div>
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {filters.year ? format(filters.year, 'yyyy') : <span>Select Year</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={filters.year}
+                onSelect={(date) => handleFilterChange('year', date)}
+                fromYear={1900}
+                toYear={new Date().getFullYear()}
+                captionLayout="dropdown-buttons"
+                initialFocus
+                className="pointer-events-auto"
+              />
+            </PopoverContent>
+          </Popover>
         </div>
         
-        {/* Genres for Movies/TV or Categories for Tutorials/Documentary */}
+        {/* Languages Dropdown */}
+        <div>
+          <h3 className="text-sm font-medium mb-3">Language</h3>
+          <Select 
+            onValueChange={(value) => handleFilterChange('language', value)}
+            value={filters.language}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select Language" />
+            </SelectTrigger>
+            <SelectContent>
+              {languageOptions.map((language) => (
+                <SelectItem key={language} value={language}>
+                  {language}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        
+        {/* Genres/Categories Dropdown */}
         <div>
           <h3 className="text-sm font-medium mb-3">
             {type === 'movies' || type === 'tv-series' ? 'Genre' : 'Category'}
           </h3>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {(type === 'movies' || type === 'tv-series' ? genreOptions : categoryOptions).map((item) => (
-              <button
-                key={item}
-                type="button"
-                className={cn(
-                  "px-3 py-2 text-xs font-medium rounded-md border transition-colors text-left flex items-center gap-1.5",
-                  (type === 'movies' || type === 'tv-series')
-                    ? (filters.genres.includes(item) 
-                      ? "bg-primary/10 text-primary border-primary" 
-                      : "bg-transparent border-border hover:bg-muted")
-                    : (filters.categories.includes(item) 
-                      ? "bg-primary/10 text-primary border-primary" 
-                      : "bg-transparent border-border hover:bg-muted")
-                )}
-                onClick={() => {
-                  if (type === 'movies' || type === 'tv-series') {
-                    handleFilterChange('genres', toggleArraySelection(filters.genres, item));
-                  } else {
-                    handleFilterChange('categories', toggleArraySelection(filters.categories, item));
-                  }
-                }}
-              >
-                {((type === 'movies' || type === 'tv-series') ? filters.genres.includes(item) : filters.categories.includes(item)) && (
-                  <Check className="h-3 w-3 shrink-0" />
-                )}
-                <span className="truncate">{item}</span>
-              </button>
-            ))}
-          </div>
+          <Select 
+            onValueChange={(value) => {
+              if (type === 'movies' || type === 'tv-series') {
+                handleFilterChange('genre', value);
+              } else {
+                handleFilterChange('category', value);
+              }
+            }}
+            value={type === 'movies' || type === 'tv-series' ? filters.genre : filters.category}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={type === 'movies' || type === 'tv-series' ? "Select Genre" : "Select Category"} />
+            </SelectTrigger>
+            <SelectContent>
+              {(type === 'movies' || type === 'tv-series' ? genreOptions : categoryOptions).map((item) => (
+                <SelectItem key={item} value={item}>
+                  {item}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         
         {/* Submit Button */}
