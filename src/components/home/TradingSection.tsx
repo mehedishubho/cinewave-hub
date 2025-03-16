@@ -3,12 +3,15 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import ContentCard from '@/components/common/ContentCard';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface TradingSectionProps {
   items: any[];
 }
 
 const TradingSection = ({ items }: TradingSectionProps) => {
+  const isMobile = useIsMobile();
+  
   return (
     <section className="py-16 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/pattern-bg.png')] opacity-10 mix-blend-overlay"></div>
@@ -23,7 +26,7 @@ const TradingSection = ({ items }: TradingSectionProps) => {
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-          {items.slice(0, 12).map((item, index) => (
+          {items.slice(0, isMobile ? 6 : 12).map((item, index) => (
             <ContentCard
               key={item.id}
               {...item}

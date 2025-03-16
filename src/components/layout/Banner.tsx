@@ -52,7 +52,7 @@ const Banner = ({ title, subtitle }: BannerProps) => {
           {breadcrumbs.map((crumb, index) => (
             <div key={index} className="flex items-center">
               {index > 0 && <ChevronRight className="h-3 w-3 mx-1 text-white/50" />}
-              {'isActive' in crumb && crumb.isActive ? (
+              {crumb.isActive ? (
                 <span className="text-white">{crumb.name}</span>
               ) : (
                 <Link to={crumb.path} className="hover:text-primary transition-colors">
