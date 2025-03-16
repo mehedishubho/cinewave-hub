@@ -7,6 +7,12 @@ interface BannerProps {
   subtitle?: string;
 }
 
+interface Breadcrumb {
+  name: string;
+  path: string;
+  isActive?: boolean;
+}
+
 const Banner = ({ title, subtitle }: BannerProps) => {
   const location = useLocation();
   
