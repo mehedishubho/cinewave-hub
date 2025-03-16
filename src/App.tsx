@@ -1,15 +1,11 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import RootLayout from "./app/layout";
 
 // Lazy load pages for better performance
-const Home = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import("./app/page"));
 const Movies = lazy(() => import("./pages/Movies"));
 const MovieDetail = lazy(() => import("./pages/MovieDetail"));
 const TvSeries = lazy(() => import("./pages/TvSeries"));
@@ -35,36 +31,28 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow pt-16">
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/movies" element={<Movies />} />
-                <Route path="/movies/:id" element={<MovieDetail />} />
-                <Route path="/tv-series" element={<TvSeries />} />
-                <Route path="/tv-series/:id" element={<TvSeriesDetail />} />
-                <Route path="/tutorials" element={<Tutorials />} />
-                <Route path="/tutorials/:id" element={<TutorialDetail />} />
-                <Route path="/documentary" element={<Documentary />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/request" element={<Request />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/dmca" element={<DMCA />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
+    <BrowserRouter>
+      <RootLayout>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/movies/:id" element={<MovieDetail />} />
+            <Route path="/tv-series" element={<TvSeries />} />
+            <Route path="/tv-series/:id" element={<TvSeriesDetail />} />
+            <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/tutorials/:id" element={<TutorialDetail />} />
+            <Route path="/documentary" element={<Documentary />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/request" element={<Request />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/dmca" element={<DMCA />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </RootLayout>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 

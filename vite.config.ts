@@ -18,10 +18,13 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Add Next.js-like path aliases
+      // Next.js 15-like path aliases
       "app": path.resolve(__dirname, "./src/app"),
       "components": path.resolve(__dirname, "./src/components"),
       "lib": path.resolve(__dirname, "./src/lib"),
+      "hooks": path.resolve(__dirname, "./src/hooks"),
+      "public": path.resolve(__dirname, "./public"),
+      "styles": path.resolve(__dirname, "./src/styles"),
     },
   },
 }));

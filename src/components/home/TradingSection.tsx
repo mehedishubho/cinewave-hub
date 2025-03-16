@@ -6,7 +6,18 @@ import ContentCard from '@/components/common/ContentCard';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface TradingSectionProps {
-  items: any[];
+  items: {
+    id: string;
+    title: string;
+    poster: string;
+    category?: string;
+    instructor?: string;
+    language: string;
+    contentType: string;
+    rating?: number;
+    year?: number;
+    type?: string;
+  }[];
 }
 
 const TradingSection = ({ items }: TradingSectionProps) => {

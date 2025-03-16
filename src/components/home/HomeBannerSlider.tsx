@@ -175,7 +175,7 @@ export const HomeBannerSlider = () => {
       {/* Bottom Cards Slider (6 items) */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent pt-20 pb-6">
         <div className="container mx-auto px-4">
-          <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4`}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             {SLIDES.map((slide, index) => (
               <Link 
                 to={slide.link} 
