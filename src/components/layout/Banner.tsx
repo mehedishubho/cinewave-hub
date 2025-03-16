@@ -10,7 +10,7 @@ interface BannerProps {
 interface Breadcrumb {
   name: string;
   path: string;
-  isActive?: boolean;
+  isActive?: boolean;  // Make isActive optional with the '?' operator
 }
 
 const Banner = ({ title, subtitle }: BannerProps) => {
