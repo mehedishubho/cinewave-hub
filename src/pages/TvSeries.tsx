@@ -18,6 +18,41 @@ const mockTvSeries = Array(24).fill(null).map((_, index) => ({
 const TvSeries = () => {
   const [filteredTvSeries, setFilteredTvSeries] = useState(mockTvSeries);
   
+  const handleFilter = (filters: any) => {
+    let results = [...mockTvSeries];
+    
+    // Apply filters
+    if (filters.search) {
+      results = results.filter(series => 
+        series.title.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+    
+    if (filters.genre) {
+      results = results.filter(series => series.type === filters.genre);
+    }
+    
+    if (filters.language) {
+      results = results.filter(series => series.language === filters.language);
+    }
+    
+    if (filters.year) {
+      results = results.filter(series => series.year.toString() === filters.year);
+    }
+    
+    // Apply selected filter type
+    if (filters.selectedFilterType === 'top-rated') {
+      results = results.sort((a, b) => b.rating - a.rating);
+    } else if (filters.selectedFilterType === 'newly-released') {
+      results = results.sort((a, b) => b.year - a.year);
+    } else if (filters.selectedFilterType === 'trending') {
+      // For demo, simulate trending with a mix of rating and randomness
+      results = results.sort((a, b) => (b.rating * (Math.random() + 0.5)) - (a.rating * (Math.random() + 0.5)));
+    }
+    
+    setFilteredTvSeries(results);
+  };
+  
   return (
     <div className="bg-background min-h-screen">
       <Banner 
@@ -28,7 +63,7 @@ const TvSeries = () => {
       <div className="container mx-auto px-4 py-12">
         <ContentFilter 
           type="tv-series"
-          onFilter={(filtered) => setFilteredTvSeries(filtered as any)} 
+          onFilter={handleFilter} 
           initialData={mockTvSeries}
         />
         

@@ -9,13 +9,38 @@ const mockDocumentaries = Array(24).fill(null).map((_, index) => ({
   id: `doc-${index}`,
   title: `Documentary ${index + 1}`,
   poster: '/placeholder.svg',
-  category: ['Nature', 'History', 'Science', 'Society', 'Culture', 'Sport'][index % 6],
   year: 2015 + (index % 9),
+  category: ['Nature', 'History', 'Science', 'Society', 'Culture', 'Sport'][index % 6],
   language: ['English', 'Spanish', 'French', 'German'][index % 4]
 }));
 
 const Documentary = () => {
   const [filteredDocumentaries, setFilteredDocumentaries] = useState(mockDocumentaries);
+  
+  const handleFilter = (filters: any) => {
+    let results = [...mockDocumentaries];
+    
+    // Apply filters
+    if (filters.search) {
+      results = results.filter(doc => 
+        doc.title.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+    
+    if (filters.category) {
+      results = results.filter(doc => doc.category === filters.category);
+    }
+    
+    if (filters.language) {
+      results = results.filter(doc => doc.language === filters.language);
+    }
+    
+    if (filters.year) {
+      results = results.filter(doc => doc.year.toString() === filters.year);
+    }
+    
+    setFilteredDocumentaries(results);
+  };
   
   return (
     <div className="bg-background min-h-screen">
@@ -27,7 +52,7 @@ const Documentary = () => {
       <div className="container mx-auto px-4 py-12">
         <ContentFilter 
           type="documentary"
-          onFilter={(filtered) => setFilteredDocumentaries(filtered as any)} 
+          onFilter={handleFilter} 
           initialData={mockDocumentaries}
         />
         
