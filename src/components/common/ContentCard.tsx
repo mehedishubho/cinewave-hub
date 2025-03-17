@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Star } from 'lucide-react';
+import { Star, Calendar, Film, Tv, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ContentCardProps {
@@ -46,11 +46,26 @@ const ContentCard = ({
     }
   };
 
+  // Get the appropriate icon based on content type
+  const getTypeIcon = () => {
+    switch (type) {
+      case 'movie':
+        return <Film className="h-3.5 w-3.5 mr-1" />;
+      case 'tv':
+        return <Tv className="h-3.5 w-3.5 mr-1" />;
+      case 'tutorial':
+      case 'documentary':
+        return <BookOpen className="h-3.5 w-3.5 mr-1" />;
+      default:
+        return null;
+    }
+  };
+
   // Placeholder image if poster is not available
   const fallbackImage = '/placeholder.svg';
 
   return (
-    <Link to={getLink()} className={cn('content-card group hover-scale block', className)}>
+    <Link to={getLink()} className={cn('content-card group block relative rounded-lg overflow-hidden', className)}>
       <div className="relative aspect-[2/3] overflow-hidden">
         <img
           src={poster || fallbackImage}
@@ -62,56 +77,41 @@ const ContentCard = ({
           }}
         />
         
-        {/* Overlay with gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        
-        {/* Rating Badge - Show only for movie and tv */}
-        {(type === 'movie' || type === 'tv') && rating && (
-          <div className="absolute top-2 right-2 bg-black/70 text-white text-xs font-medium py-1 px-2 rounded-md flex items-center">
-            <Star className="h-3 w-3 text-cine-rating mr-1 inline" />
+        {/* Rating Badge - Show for any content with rating */}
+        {rating && (
+          <div className="absolute top-2 left-2 bg-black/70 text-white text-xs font-medium py-1 px-2 rounded-md flex items-center">
+            <Star className="h-3 w-3 text-yellow-400 mr-1" />
             <span>{rating.toFixed(1)}</span>
           </div>
         )}
       </div>
       
-      <div className="p-3">
-        <h3 className="content-title">{title}</h3>
+      {/* Card Info with gradient background */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-3 pt-8">
+        <h3 className="text-white font-medium text-sm md:text-base line-clamp-1">{title}</h3>
         
-        <div className="content-meta">
-          {/* Different metadata based on content type */}
-          {type === 'movie' && (
-            <>
-              {year && <span>{year}</span>}
-              {language && <span>{language}</span>}
-              {contentType && <span className="text-cine-primary">{contentType}</span>}
-              {genres && genres.length > 0 && <span>{genres[0]}</span>}
-            </>
+        <div className="flex flex-wrap items-center gap-x-3 mt-1 text-white/80 text-xs">
+          {/* Year with calendar icon */}
+          {year && (
+            <span className="flex items-center">
+              <Calendar className="h-3.5 w-3.5 mr-1" />
+              {year}
+            </span>
           )}
           
-          {type === 'tv' && (
-            <>
-              {year && <span>{year}</span>}
-              {language && <span>{language}</span>}
-              {contentType && <span className="text-cine-primary">{contentType}</span>}
-              {genres && genres.length > 0 && <span>{genres[0]}</span>}
-            </>
+          {/* Content type or genre with appropriate icon */}
+          {(contentType || (genres && genres.length > 0)) && (
+            <span className="flex items-center text-white/80">
+              {getTypeIcon()}
+              {contentType || (genres && genres[0])}
+            </span>
           )}
           
-          {type === 'tutorial' && (
-            <>
-              {category && <span>{category}</span>}
-              {language && <span>{language}</span>}
-              {contentType && <span className="text-cine-primary">{contentType}</span>}
-            </>
-          )}
-          
-          {type === 'documentary' && (
-            <>
-              {category && <span>{category}</span>}
-              {year && <span>{year}</span>}
-              {language && <span>{language}</span>}
-              {contentType && <span className="text-cine-primary">{contentType}</span>}
-            </>
+          {/* Display language only if we have space */}
+          {language && !(contentType && year) && (
+            <span className="text-white/70 hidden sm:inline-block">
+              {language}
+            </span>
           )}
         </div>
       </div>

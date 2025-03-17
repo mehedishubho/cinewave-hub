@@ -70,7 +70,7 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
   
   return (
     <div className="filter-container w-full">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 w-full">
         <h2 className="font-medium text-lg">Filters</h2>
         <Button 
           variant="outline" 
@@ -84,20 +84,20 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
       </div>
       
       <form onSubmit={handleSubmit} className={cn(
-        "space-y-6",
+        "space-y-6 w-full",
         mobileFiltersOpen ? 'block' : 'hidden md:block'
       )}>
-        {/* Single column layout for all screen sizes */}
-        <div className="grid grid-cols-1 gap-6">
+        {/* Full width layout for all screen sizes */}
+        <div className="grid grid-cols-1 gap-6 w-full">
           {/* Search Input */}
-          <div>
-            <div className="relative">
+          <div className="w-full">
+            <div className="relative w-full">
               <Input
                 type="text"
                 placeholder={`Search ${type}...`}
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
-                className="pr-10"
+                className="pr-10 w-full"
               />
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             </div>
@@ -105,7 +105,7 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
           
           {/* Type Selection (for movies/TV) */}
           {(type === 'movies' || type === 'tv-series') && (
-            <div>
+            <div className="w-full">
               <h3 className="text-sm font-medium mb-3">Type</h3>
               <div className="flex flex-wrap gap-2">
                 {['newly-released', 'top-rated', 'trending'].map((filterType) => (
@@ -128,7 +128,7 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
           )}
           
           {/* Year Datepicker */}
-          <div>
+          <div className="w-full">
             <h3 className="text-sm font-medium mb-3">Release Year</h3>
             <Popover>
               <PopoverTrigger asChild>
@@ -159,7 +159,7 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
           </div>
           
           {/* Languages Dropdown */}
-          <div>
+          <div className="w-full">
             <h3 className="text-sm font-medium mb-3">Language</h3>
             <Select 
               onValueChange={(value) => handleFilterChange('language', value)}
@@ -179,7 +179,7 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
           </div>
           
           {/* Genres/Categories Dropdown */}
-          <div>
+          <div className="w-full">
             <h3 className="text-sm font-medium mb-3">
               {type === 'movies' || type === 'tv-series' ? 'Genre' : 'Category'}
             </h3>
@@ -207,7 +207,7 @@ const ContentFilter = ({ type, onFilter, initialData }: ContentFilterProps) => {
           </div>
           
           {/* Submit Button */}
-          <div className="pt-2">
+          <div className="pt-2 w-full">
             <Button type="submit" className="w-full">Apply Filters</Button>
           </div>
         </div>
