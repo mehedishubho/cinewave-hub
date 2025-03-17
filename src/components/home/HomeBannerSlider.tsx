@@ -45,7 +45,7 @@ const SLIDES: SlideProps[] = [
   {
     id: '5',
     title: 'Exclusive Content',
-    description: 'Access exclusive content you won't find anywhere else.',
+    description: 'Access exclusive content you won\'t find anywhere else.',
     image: '/placeholder.svg',
     link: '/movies'
   },
